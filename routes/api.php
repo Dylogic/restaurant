@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get("/menu", [MenuController::class, "getAll"]);
+Route::get("/menu/{min}/{max}", [MenuController::class,"getByPrice"]);
+
+Route::get("/category", [CategoryController::class,"getAll"]);
+Route::get("/category/{name}", [CategoryController::class,"getMenusByCategory"]);
+
+Route::get("/order/{order_id}", [OrderController::class,"getMenusByOrderId"]);
+Route::get("/order/date/{date}", [OrderController::class,"getOrdersByDate"]);
+Route::get("/order/total/date/{date}", [OrderController::class,"getTotalOrdersByDate"]);
